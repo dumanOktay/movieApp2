@@ -1,10 +1,10 @@
 package com.duman.movieapp.network;
 
+import com.duman.movieapp.BuildConfig;
 import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -27,11 +27,14 @@ public class ApiClient {
 
 
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
+            Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(ApiConst.BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()));
+
+            if (BuildConfig.DEBUG) {
+                builder.client(client);
+            }
+            retrofit = builder
                     .build();
 
         }

@@ -16,7 +16,7 @@ class MoviesRepository : PageKeyedDataSource<Int, Movie>() {
 
         movieApi.getMovies(queryString, API_KEY, 1).enqueue(object : Callback<MovieResponse?> {
             override fun onFailure(call: Call<MovieResponse?>, t: Throwable) {
-
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<MovieResponse?>, response: Response<MovieResponse?>) {
@@ -33,10 +33,9 @@ class MoviesRepository : PageKeyedDataSource<Int, Movie>() {
 
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val url = "https://api.themoviedb.org/3/movie/" + queryString + "?page=" + params.key + "&api_key=$API_KEY"
         movieApi.getMovies(queryString, API_KEY, params.key).enqueue(object : Callback<MovieResponse?> {
             override fun onFailure(call: Call<MovieResponse?>, t: Throwable) {
-
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<MovieResponse?>, response: Response<MovieResponse?>) {
@@ -54,6 +53,4 @@ class MoviesRepository : PageKeyedDataSource<Int, Movie>() {
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
 
     }
-
-
 }
