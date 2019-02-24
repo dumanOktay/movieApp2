@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.duman.movieapp.R
 import com.duman.movieapp.model.Movie
+import com.duman.movieapp.utils.loadImage
 import com.duman.movieapp.view.adapters.BaseMovieAdapter.MovieViewHolder
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
@@ -35,7 +36,7 @@ class BaseMovieAdapter : PagedListAdapter<Movie, MovieViewHolder>(diffCallback) 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(movie: Movie) = with(itemView) {
-            Picasso.get().load(movie.imageUrl).memoryPolicy(MemoryPolicy.NO_CACHE).into(img)
+            img.loadImage(movie.backdropPath)
             movie_title.text = movie.title
 
             img.setOnClickListener {

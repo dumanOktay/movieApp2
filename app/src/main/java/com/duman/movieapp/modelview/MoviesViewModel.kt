@@ -12,7 +12,7 @@ import com.duman.movieapp.network.SearchRepository
 
 class MoviesViewModel(var moviesRepository: MoviesRepository) : ViewModel() {
 
-    var searchRepository = SearchRepository(moviesRepository.cachedData)
+    var searchRepository = SearchRepository()
     private val pageSize = 10
 
 

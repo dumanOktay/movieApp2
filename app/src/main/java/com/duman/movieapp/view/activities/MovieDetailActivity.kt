@@ -11,6 +11,8 @@ import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import com.duman.movieapp.R
 import com.duman.movieapp.modelview.MoviesDetailViewModel
+import com.duman.movieapp.modelview.ViewModelFactory
+import com.duman.movieapp.utils.loadImage
 import com.duman.movieapp.view.adapters.BaseProfileAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -27,31 +29,33 @@ class MovieDetailActivity : AppCompatActivity() {
         setTitle("")
         val profileAdapter = BaseProfileAdapter(listOf())
         credits_list.adapter = profileAdapter
-        val moviesDetailViewModel = ViewModelProviders.of(this).get(MoviesDetailViewModel::class.java)?.apply {
+        val moviesDetailViewModel =
+            ViewModelProviders.of(this, ViewModelFactory.getInstance()).get(MoviesDetailViewModel::class.java)?.apply {
 
-            videoInfoLiveData.observe(this@MovieDetailActivity, Observer { url ->
-                url ?: fab.hide()
-                fab.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(intent)
-                }
-            })
+                videoInfoLiveData.observe(this@MovieDetailActivity, Observer { url ->
+                    url ?: fab.hide()
+                    fab.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                })
 
-            movieDetailLiveData.observe(this@MovieDetailActivity, Observer {
-                it ?: return@Observer
-                this@MovieDetailActivity.setTitle("" + it.title)
-                over_view.text = it.overview
-                Picasso.get().load("https://image.tmdb.org/t/p/w500" + it.backdropPath).into(top_image);
-                Picasso.get().load("https://image.tmdb.org/t/p/w500" + it.posterPath).into(poster_img);
-            })
+                movieDetailLiveData.observe(this@MovieDetailActivity, Observer {
+                    it ?: return@Observer
+                    this@MovieDetailActivity.setTitle("" + it.title)
+                    over_view.text = it.overview
 
-            creditsLiveData.observe(this@MovieDetailActivity, Observer {
-                it?.cast?.let { list ->
-                    profileAdapter.updateData(list)
-                }
+                    top_image.loadImage(it.backdropPath)
+                    poster_img.loadImage(it.posterPath)
+                })
 
-            })
-        }
+                creditsLiveData.observe(this@MovieDetailActivity, Observer {
+                    it?.cast?.let { list ->
+                        profileAdapter.updateData(list)
+                    }
+
+                })
+            }
 
         val posterContainer = poster_img.getParent() as CardView
         app_bar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {

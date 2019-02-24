@@ -17,8 +17,6 @@ class Movie {
     @Expose
     var backdropPath: String? = null
 
-    var imageUrl: String? = null
-
 
     override fun equals(other: Any?): Boolean {
         return if (other is Movie) {

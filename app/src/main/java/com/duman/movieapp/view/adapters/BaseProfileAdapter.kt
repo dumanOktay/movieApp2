@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.duman.movieapp.R
 import com.duman.movieapp.model.Cast
+import com.duman.movieapp.utils.loadImage
 import com.duman.movieapp.view.adapters.BaseProfileAdapter.CastViewHolder
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_profile.view.*
 
 class BaseProfileAdapter(private var mCastList: List<Cast>?) : RecyclerView.Adapter<CastViewHolder>() {
@@ -34,7 +33,7 @@ class BaseProfileAdapter(private var mCastList: List<Cast>?) : RecyclerView.Adap
 
     inner class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(cast: Cast) = with(itemView) {
-            Picasso.get().load(cast.imageUrl).memoryPolicy(MemoryPolicy.NO_CACHE).into(img)
+            img.loadImage(cast.profilePath)
             cast_title.text = cast.name
         }
     }

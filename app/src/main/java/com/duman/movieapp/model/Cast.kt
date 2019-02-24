@@ -14,6 +14,4 @@ class Cast {
     @Expose
     var profilePath: String? = null
 
-    val imageUrl: String
-        get() = "https://image.tmdb.org/t/p/w500$profilePath"
 }
