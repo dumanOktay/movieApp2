@@ -9,6 +9,7 @@ import android.view.Gravity
 import com.duman.movieapp.R
 import com.duman.movieapp.view.fragments.BaseFragment
 import com.duman.movieapp.view.fragments.TopRatedFragment
+import com.poilabs.poiutils.JsonData
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,9 +37,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    var mCurrentFargment:BaseFragment?=null
+    var mCurrentFargment: BaseFragment? = null
     private fun replaceFragment(topRatedFragment: BaseFragment) {
-        mCurrentFargment= topRatedFragment
+        mCurrentFargment = topRatedFragment
         supportFragmentManager.beginTransaction().replace(R.id.fr_container, topRatedFragment).commitAllowingStateLoss()
     }
 
@@ -47,10 +48,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        JsonData.init(this)
+        JsonData.DEBUG = false
         search_ed.layoutParams = Toolbar.LayoutParams(Gravity.END)
         title = getString(R.string.top_rated)
         replaceFragment(TopRatedFragment.newInstance("top_rated"))
-        search_ed.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        search_ed.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let { mCurrentFargment?.onSearch(it) }
                 return true

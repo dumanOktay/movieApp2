@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import com.duman.movieapp.R
+import com.duman.movieapp.model.AppData
 import com.duman.movieapp.modelview.MoviesDetailViewModel
 import com.duman.movieapp.modelview.ViewModelFactory
 import com.duman.movieapp.utils.loadImage
@@ -20,13 +21,32 @@ import kotlinx.android.synthetic.main.content_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity() {
 
+    var appData=AppData.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        back_icon.setOnClickListener {
+            finish()
+        }
+
         val movieId = intent.getIntExtra("movie_id", 0)
         setTitle("")
+
+
+        fav_button.isActivated = appData?.favoriteList?.contains(movieId)==true
+
+        fav_button.setOnClickListener {
+
+            if (it.isActivated) {
+                appData?.removeFavorite(movieId)
+                it.isActivated = false
+            }else {
+                appData?.addFavorite(movieId)
+                it.isActivated = true
+            }
+
+        }
         val profileAdapter = BaseProfileAdapter(listOf())
         credits_list.adapter = profileAdapter
         val moviesDetailViewModel =
