@@ -1,7 +1,7 @@
 package com.duman.movieapp.modelview
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.duman.movieapp.model.Credits
 import com.duman.movieapp.model.MovieDetail
 import com.duman.movieapp.network.MovieDetailRepository

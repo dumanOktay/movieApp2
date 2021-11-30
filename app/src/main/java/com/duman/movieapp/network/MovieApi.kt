@@ -1,6 +1,7 @@
 package com.duman.movieapp.network
 
 
+import androidx.paging.PagingSource
 import com.duman.movieapp.model.Credits
 import com.duman.movieapp.model.MovieDetail
 import com.duman.movieapp.model.MovieResponse
@@ -14,7 +15,7 @@ import retrofit2.http.Query
 interface MovieApi {
 
     @GET("3/movie/{type}")
-    fun getMovies(@Path("type") type: String, @Query("api_key") apiKey: String, @Query("page") page: Int): Call<MovieResponse>
+    suspend fun getMovies(@Path("type") type: String, @Query("api_key") apiKey: String, @Query("page") page: Int): MovieResponse
 
     @GET("3/search/movie")
     fun getMovies(@Query("api_key") apiKey: String, @Query("page") page: Int,@Query("query") query: String): Call<MovieResponse>

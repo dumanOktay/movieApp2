@@ -1,16 +1,15 @@
 package com.duman.movieapp.view.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.duman.movieapp.R
-import com.duman.movieapp.model.AppData
 import com.duman.movieapp.modelview.MoviesDetailViewModel
 import com.duman.movieapp.modelview.ViewModelFactory
 import com.duman.movieapp.utils.loadImage
@@ -21,7 +20,6 @@ import kotlinx.android.synthetic.main.content_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity() {
 
-    var appData=AppData.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -34,17 +32,10 @@ class MovieDetailActivity : AppCompatActivity() {
         setTitle("")
 
 
-        fav_button.isActivated = appData?.favoriteList?.contains(movieId)==true
 
         fav_button.setOnClickListener {
 
-            if (it.isActivated) {
-                appData?.removeFavorite(movieId)
-                it.isActivated = false
-            }else {
-                appData?.addFavorite(movieId)
-                it.isActivated = true
-            }
+            it.isActivated = !it.isActivated
 
         }
         val profileAdapter = BaseProfileAdapter(listOf())
@@ -94,7 +85,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
         moviesDetailViewModel.getMoviesDetail("" + movieId)
 
-        credits_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        credits_list.layoutManager =
+            LinearLayoutManager(
+                this,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
 
 
     }

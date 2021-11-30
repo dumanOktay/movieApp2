@@ -1,6 +1,6 @@
 package com.duman.movieapp.network
 
-import android.arch.paging.PageKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 import com.duman.movieapp.model.Movie
 import com.duman.movieapp.model.MovieResponse
 import com.duman.movieapp.network.ApiConst.Companion.API_KEY

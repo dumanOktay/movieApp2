@@ -1,7 +1,7 @@
 package com.duman.movieapp.modelview
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.duman.movieapp.network.MoviesRepository
 import com.duman.movieapp.utils.Injection
 

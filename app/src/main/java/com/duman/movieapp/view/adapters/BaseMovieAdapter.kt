@@ -1,11 +1,12 @@
 package com.duman.movieapp.view.adapters
 
-import android.arch.paging.PagedListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import com.duman.movieapp.R
 import com.duman.movieapp.model.Movie
 import com.duman.movieapp.utils.loadImage
@@ -14,7 +15,7 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_top_rated.view.*
 
-class BaseMovieAdapter : PagedListAdapter<Movie, MovieViewHolder>(diffCallback) {
+class BaseMovieAdapter : PagingDataAdapter<Movie, MovieViewHolder>(diffCallback) {
 
     private var movieClickListener: MovieClickListener? = null
 

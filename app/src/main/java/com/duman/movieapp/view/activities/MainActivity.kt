@@ -1,15 +1,14 @@
 package com.duman.movieapp.view.activities
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SearchView
-import android.support.v7.widget.Toolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import android.view.Gravity
 import com.duman.movieapp.R
 import com.duman.movieapp.view.fragments.BaseFragment
 import com.duman.movieapp.view.fragments.TopRatedFragment
-import com.poilabs.poiutils.JsonData
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        JsonData.init(this)
-        JsonData.DEBUG = false
         search_ed.layoutParams = Toolbar.LayoutParams(Gravity.END)
         title = getString(R.string.top_rated)
         replaceFragment(TopRatedFragment.newInstance("top_rated"))
